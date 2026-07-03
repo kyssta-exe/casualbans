@@ -1,0 +1,339 @@
+# ═══════════════════════════════════════════
+# CasualBans Messages
+# Developer: Kyssta
+# ═══════════════════════════════════════════
+#
+# Variables available (where applicable):
+#   $player - affected player name
+#   $executor - staff member name
+#   $reason - punishment reason
+#   $duration - time until expiry
+#   $originalDuration - original punishment length
+#   $dateStart - punishment start date
+#   $dateEnd - punishment end date
+#   $serverScope - server scope
+#   $serverOrigin - origin server
+#   $id - punishment ID
+#   $silent - whether punishment is silent
+#   $ipban - whether punishment is IP-based
+#   $active - whether punishment is active
+#   $timeSince - time since punishment was placed
+#   $geoip - player country
+#
+# Supports MiniMessage format for colors and formatting.
+# Hex colors: <#FF0000>red text</#FF0000>
+# Gradients: <gradient:#8c75a5:#f46c90>text</gradient>
+# Set a message to '' to disable it.
+
+# General
+prefix: '<gradient:#8c75a5:#f46c90>CasualBans</gradient> <dark_gray>»</dark_gray>'
+no-permission: '<red>You do not have permission to use this command.</red>'
+player-not-found: '<red>Player not found.</red>'
+console-only: '<red>This command can only be executed from console.</red>'
+invalid-usage: '<red>Invalid usage. Use /<command> for help.</red>'
+internal-error: '<red>An internal error occurred. Check console for details.</red>'
+no-sql: '<red>CasualBans is not connected to a database.</red>'
+no-reason: '<red>You must provide a reason for this punishment.</red>'
+no-reason-removal: '<red>You must provide a reason for removing this punishment.</red>'
+no-duration: '<red>No valid duration specified.</red>'
+duration-limit: '<red>Maximum duration allowed: $duration</red>'
+cooldown: '<red>You must wait $duration before using this command again.</red>'
+reloading: '<yellow>Reloading CasualBans...</yellow>'
+reload-success: '<green>CasualBans reloaded successfully.</green>'
+reload-fail: '<red>Reload failed. Check console for details.</red>'
+
+# Punishment messages
+ban:
+  usage: '<red>Usage: /ban [-s] <player> [duration] [reason]</red>'
+  broadcast: '<green>$executor</green> banned <green>$player</green> for <green>$reason</green>'
+  temp-broadcast: '<green>$executor</green> tempbanned <green>$player</green> for $duration for <green>$reason</green>'
+  ip-broadcast: '<green>$executor</green> IP-banned <green>$player</green> for <green>$reason</green>'
+  temp-ip-broadcast: '<green>$executor</green> temp IP-banned <green>$player</green> for $duration for <green>$reason</green>'
+  kick-message: |
+    <red>You are banned from this server.</red>
+    <gray>Banned by:</gray> <green>$executor</green>
+    <gray>Reason:</gray> <green>$reason</green>
+    <gray>Expires:</gray> <green>$duration</green>
+  kick-message-permanent: |
+    <red>You are permanently banned from this server.</red>
+    <gray>Banned by:</gray> <green>$executor</green>
+    <gray>Reason:</gray> <green>$reason</green>
+  exempt: '<red>You cannot ban $player.</red>'
+  already-banned: '<red>$player is already banned.</red>'
+  not-banned: '<red>$player is not banned.</red>'
+  no-override: '<red>$player is already banned and you cannot override that ban.</red>'
+  previous-removed: '<green>Previous ban for $player has been removed.</green>'
+  unban-broadcast: '<green>$executor</green> unbanned <green>$player</green> for <green>$removalReason</green>'
+  unban-queued: '<gold>$player is not banned. If they reconnect, they will be unbanned.</gold>'
+
+mute:
+  usage: '<red>Usage: /mute [-s] <player> [duration] [reason]</red>'
+  broadcast: '<green>$executor</green> muted <green>$player</green> for <green>$reason</green>'
+  temp-broadcast: '<green>$executor</green> tempmuted <green>$player</green> for $duration for <green>$reason</green>'
+  ip-broadcast: '<green>$executor</green> IP-muted <green>$player</green> for <green>$reason</green>'
+  message: '<red>You are muted! ($duration remaining)</red><newline/><red>Reason:</red> <green>$reason</green>'
+  message-permanent: '<red>You are permanently muted!</red><newline/><red>Reason:</red> <green>$reason</green>'
+  chat-attempt: '<gray>$player tried to speak but is muted.</gray>'
+  exempt: '<red>You cannot mute $player.</red>'
+  already-muted: '<red>$player is already muted.</red>'
+  not-muted: '<red>$player is not muted.</red>'
+  no-override: '<red>$player is already muted and you cannot override that mute.</red>'
+  previous-removed: '<green>Previous mute for $player has been removed.</green>'
+  unmute-broadcast: '<green>$executor</green> unmuted <green>$player</green> for <green>$removalReason</green>'
+
+warn:
+  usage: '<red>Usage: /warn [-s] <player> [reason]</red>'
+  broadcast: '<green>$executor</green> warned <green>$player</green> for <green>$reason</green>'
+  message: '<red>You have been warned by $executor for:</red> <green>$reason</green><newline/><gray>This warning expires in $duration.</gray>'
+  list-entry: '<gray>-</gray> Warned by <green>$executor</green>: <green>$reason</green>'
+  exempt: '<red>You cannot warn $player.</red>'
+  no-warnings: '<red>$player has no active warnings.</red>'
+  unwarn-broadcast: '<green>$executor</green> removed warning for <green>$player</green>'
+  unwarn-response: '<green>Last warning removed for $player.</green>'
+
+kick:
+  usage: '<red>Usage: /kick [-s] <player> [reason]</red>'
+  broadcast: '<green>$player</green> was kicked by <green>$executor</green> for <green>$reason</green>'
+  broadcast-no-reason: '<green>$player</green> was kicked by <green>$executor</green>'
+  message: '<red>Kicked by $executor:</red> <green>$reason</green>'
+  message-no-reason: '<red>Kicked by $executor.</red>'
+  response: '<green>$player has been kicked.</green>'
+  cross-server: '<gold>$player is not on this server. Cross-server kick requested.</gold>'
+  exempt: '<red>You cannot kick $player.</red>'
+
+# History
+history:
+  usage: '<red>Usage: /history <player> [type] [limit]</red>'
+  header: '<green>Punishment history for $player (Last $limit):</green>'
+  ban-entry: '<gray>[$timeSince ago]</gray> <red>BANNED</red> by <green>$executor</green>: <green>$reason</green>'
+  mute-entry: '<gray>[$timeSince ago]</gray> <dark_gray>MUTED</dark_gray> by <green>$executor</green>: <green>$reason</green>'
+  warn-entry: '<gray>[$timeSince ago]</gray> <gold>WARNED</gold> by <green>$executor</green>: <green>$reason</green>'
+  kick-entry: '<gray>[$timeSince ago]</gray> <yellow>KICKED</yellow> by <green>$executor</green>: <green>$reason</green>'
+  unban-entry: '<gray>[$timeSince ago]</gray> <dark_gray>UNBANNED</dark_gray> by <green>$executor</green>'
+  unmute-entry: '<gray>[$timeSince ago]</gray> <dark_gray>UNMUTED</dark_gray> by <green>$executor</green>'
+  active-suffix: ' <red>[ACTIVE]</red>'
+  expired-suffix: ' <dark_gray>[EXPIRED]</dark_gray>'
+  no-history: '<red>No punishment history found for $player.</red>'
+
+staffhistory:
+  usage: '<red>Usage: /staffhistory <player> [type] [limit]</red>'
+  header: '<green>Staff history for $player (Last $limit):</green>'
+
+# Check commands
+checkban:
+  usage: '<red>Usage: /checkban <player></red>'
+  not-banned: '<green>$player is not banned.</green>'
+  banned: |
+    <green>$player is banned:</green>
+    <gray>Reason:</gray> <green>$reason</green>
+    <gray>Banned by:</gray> <green>$executor</green>
+    <gray>Date:</gray> <green>$dateStart</green>
+    <gray>Expires:</gray> <green>$duration ($dateEnd)</green>
+    <gray>Scope:</gray> <green>$serverScope</green>
+    <gray>IP ban:</gray> <green>$ipban</green>
+
+checkmute:
+  usage: '<red>Usage: /checkmute <player></red>'
+  not-muted: '<green>$player is not muted.</green>'
+  muted: |
+    <green>$player is muted:</green>
+    <gray>Reason:</gray> <green>$reason</green>
+    <gray>Muted by:</gray> <green>$executor</green>
+    <gray>Date:</gray> <green>$dateStart</green>
+    <gray>Expires:</gray> <green>$duration ($dateEnd)</green>
+
+# Lists
+banlist:
+  header: '<dark_gray>═══</dark_gray> <green>Active Bans (Page $page/$total)</green> <dark_gray>═══</dark_gray>'
+  entry: '<gray>$index.</gray> <green>$player</green> <gray>-</gray> <green>$reason</green> <gray>by</gray> <green>$executor</green> <gray>($duration)</gray>'
+  empty: '<green>No active bans.</green>'
+
+mutelist:
+  header: '<dark_gray>═══</dark_gray> <green>Active Mutes (Page $page/$total)</green> <dark_gray>═══</dark_gray>'
+  entry: '<gray>$index.</gray> <green>$player</green> <gray>-</gray> <green>$reason</green> <gray>by</gray> <green>$executor</green> <gray>($duration)</gray>'
+  empty: '<green>No active mutes.</green>'
+
+warnings:
+  usage: '<red>Usage: /warnings [player]</red>'
+  header: '<green>Active warnings for $player:</green>'
+  none: '<green>$player has no active warnings.</green>'
+  join-notify: '<gold>You have active warnings.</gold>'
+
+# Investigation commands
+dupeip:
+  usage: '<red>Usage: /dupeip <player></red>'
+  scanning: '<gray>Scanning <green>$player</green> on <green>$ip</green></gray>'
+  online: '<green>$player</green>'
+  offline: '<dark_gray>$player</dark_gray>'
+  banned: '<red>$player</red>'
+  separator: '<dark_gray>, </dark_gray>'
+  no-accounts: '<gold>No other accounts found for $player.</gold>'
+
+ipreport:
+  header: '<green>Scanning $count online players...</green>'
+  entry: '<green>$player:</green> $result'
+
+iphistory:
+  usage: '<red>Usage: /iphistory <player> [limit]</red>'
+  header: '<green>IP history for $player (Last $limit):</green>'
+  entry: '<gray>[$date]</gray> <green>$ip</green>'
+  none: '<red>No IP history found for $player.</red>'
+
+namehistory:
+  usage: '<red>Usage: /namehistory <player></red>'
+  header: '<green>Name history for $player:</green>'
+  entry: '<gray>[$date]</gray> <green>$name</green>'
+
+lastsession:
+  header: '<green>Last session for $player:</green>'
+  last-ip: '<gray>Last IP:</gray> <green>$ip</green>'
+  last-seen: '<gray>Last seen:</gray> <green>$date</green>'
+
+geoip:
+  usage: '<red>Usage: /geoip <player|IP></red>'
+  result: '<green>$target</green> is from <green>$country</green>'
+  unavailable: '<red>GeoIP data is not available.</red>'
+  disabled: '<red>GeoIP is not enabled in configuration.</red>'
+
+# Staff tools
+staffrollback:
+  usage: '<red>Usage: /staffrollback <player> [duration]</red>'
+  complete: '<green>Rollback complete. $amount entries removed.</green>'
+
+prunehistory:
+  usage: '<red>Usage: /prunehistory <player> [duration]</red>'
+  complete: '<green>History pruned. $amount entries removed.</green>'
+
+lockdown:
+  usage: '<red>Usage: /lockdown [reason|end]</red>'
+  activated: '<red>Server lockdown activated: $reason</red>'
+  deactivated: '<green>Server lockdown deactivated.</green>'
+  kick-message: '<red>Server lockdown is active. Try again later.</red><newline/><gray>Reason:</gray> <green>$reason</green>'
+  not-active: '<red>Lockdown is not active.</red>'
+
+mutechat:
+  disabled: '<red>Chat has been disabled by $executor.</red>'
+  enabled: '<green>Chat has been enabled by $executor.</green>'
+  blocked: '<red>Chat is currently disabled.</red>'
+
+togglechat:
+  off: '<red>Your chat has been toggled off.</red>'
+  on: '<green>Your chat has been toggled on.</green>'
+
+clearchat:
+  broadcast: '<green>Chat has been cleared by $executor.</green>'
+  bypass: '<dark_gray>Chat cleared by $executor. You can still see this message because of your bypass permission.</dark_gray>'
+
+# Miscellaneous
+silent-prefix: '<dark_gray>[Silent]</dark_gray> '
+ip-hidden: '<dark_gray>[IP Hidden]</dark_gray>'
+
+time:
+  second: second
+  seconds: seconds
+  minute: minute
+  minutes: minutes
+  hour: hour
+  hours: hours
+  day: day
+  days: days
+  week: week
+  weeks: weeks
+  month: month
+  months: months
+  year: year
+  years: years
+  forever: permanent
+  expired: expired
+
+# ── Check/Display commands ──
+checkban:
+  header: '<gold>=== Ban Information: <white>$player</white> ===</gold>'
+  status-banned: '<gold>Status: <red>BANNED</red></gold>'
+  status-not-banned: '<gold>Status: <green>NOT BANNED</green></gold>'
+  reason: '<gold>Reason: <white>$reason</white></gold>'
+  banned-by: '<gold>Banned by: <white>$executor</white></gold>'
+  date: '<gold>Date: <white>$date</white></gold>'
+  duration: '<gold>Duration: <white>$duration</white></gold>'
+  expires: '<gold>Expires: <white>$expires</white></gold>'
+  scope: '<gold>Scope: <white>$scope</white></gold>'
+  id: '<gold>ID: <gray>$id</gray></gold>'
+
+checkmute:
+  header: '<gold>=== Mute Information: <white>$player</white> ===</gold>'
+  status-muted: '<gold>Status: <red>MUTED</red></gold>'
+  status-not-muted: '<gold>Status: <green>NOT MUTED</green></gold>'
+  reason: '<gold>Reason: <white>$reason</white></gold>'
+  muted-by: '<gold>Muted by: <white>$executor</white></gold>'
+  date: '<gold>Date: <white>$date</white></gold>'
+  duration: '<gold>Duration: <white>$duration</white></gold>'
+  expires: '<gold>Expires: <white>$expires</white></gold>'
+  id: '<gold>ID: <gray>$id</gray></gold>'
+
+geoip:
+  header: '<gold>GeoIP: <white>$player</white></gold>'
+  ip: '<gold>IP: <yellow>$ip</yellow></gold>'
+  country: '<gold>Country: <white>$country</white></gold>'
+  unknown: '<gray>Country: Unknown / Not available</gray>'
+
+namehistory:
+  header: '<gold>=== Name History for <white>$player</white> ===</gold>'
+  entry: '<dark_gray>$date</dark_gray> <green>$name</green>'
+  none: '<gold>No name history recorded for <white>$player</white>.</gold>'
+  count: '<dark_gray>$count name change(s) recorded.</dark_gray>'
+
+lastsession:
+  header: '<gold>=== Last Session: <white>$player</white> ===</gold>'
+  online: '<green>Currently online!</green>'
+  session-length: '<gold>Session length: <white>$duration</white></gold>'
+  last-ip: '<gold>IP: <yellow>$ip</yellow></gold>'
+  last-login: '<gold>Last login: <white>$date</white></gold>'
+  last-seen: '<gold>Last seen: <white>$date</white></gold>'
+  last-seen-ago: '<gold>Time since: <white>$duration ago</white></gold>'
+  world: '<gold>World: <white>$world</white></gold>'
+  gamemode: '<gold>Game Mode: <white>$mode</white></gold>'
+  never-joined: '<gray>This player has never joined the server.</gray>'
+  first-joined: '<gold>First joined: <white>$date</white></gold>'
+
+warnings:
+  header: '<gold>=== Warnings for <white>$player</white> ===</gold>'
+  end: '<gold>=== End of Warnings ===</gold>'
+  entry: '<gray>-</gray> <green>$reason</green> <gray>(expires $duration)</gray>'
+
+notes:
+  header: '<gold>=== Notes for <white>$player</white> ===</gold>'
+  all-header: '<gold>=== All Staff Notes ===</gold>'
+  entry: '<dark_gray>[$id]</dark_gray> <white>$author</white> <gray>($date)</gray><newline/><gray>$note</gray>'
+  none: '<gray>No notes found.</gray>'
+  added: '<green>Note added.</green>'
+  deleted: '<green>Note deleted.</green>'
+  added-usage: '<gray>Usage: /note <player> <text></gray>'
+  no-player: '<red>Player not found.</red>'
+  total: '<gray>Total: $count note(s)</gray>'
+  add: '<gray>Add a note, or list notes for a player.</gray>'
+
+casualbans:
+  version: '<green>CasualBans v$version by Kyssta</green>'
+  server: '<gray>Server:</gray> <green>$server</green>'
+  storage: '<gray>Storage:</gray> <green>$type</green>'
+  connected: '<gray>Connected:</gray> <green>$status</green>'
+  sync: '<gray>Sync:</gray> <green>$status</green>'
+  reload-start: '<yellow>Reloading CasualBans...</yellow>'
+  reload-done: '<green>CasualBans reloaded successfully.</green>'
+  reload-fail: '<red>Reload failed. Check console for details.</red>'
+  unknown-cmd: '<red>Unknown subcommand. Use: reload, info, import, backup, restore, export, status, allow, unlink</red>'
+  import-start: '<yellow>Starting $source import from $host:$port/$database...</yellow>'
+  import-done: '<green>Import complete. $imported imported, $skipped skipped.</green>'
+  import-fail: '<red>Import failed: $error</red>'
+  backup-in-progress: '<yellow>Creating backup...</yellow>'
+  backup-created: '<green>Backup created: $file</green>'
+  restore-usage: '<red>Usage: /casualbans restore &lt;filename&gt;</red>'
+  restore-complete: '<green>Restore complete: $file</green>'
+  backup-not-found: '<red>Backup not found: $file</red>'
+  export-complete: '<green>Export complete: $file</green>'
+  data-stats: '<green>Data Stats:</green><newline/>$stats'
+
+backup:
+  created: '<green>Backup created:</green> <white>$file</white>'
+  restored: '<green>Restore complete:</green> <white>$file</white>'
+  exported: '<green>Export complete:</green> <white>$file</white>'

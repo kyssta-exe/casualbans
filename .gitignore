@@ -1,0 +1,40 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Java
+*.class
+*.log
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# Env / secrets
+.env
+*.key
+*.pem
+
+# Generated resources
+src/main/resources/plugin.yml  # regenerated each build? remove if tracked
+
+# Minecraft server artifacts (if any end up here)
+plugins/
+servers/

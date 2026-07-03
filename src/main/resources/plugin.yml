@@ -1,0 +1,391 @@
+name: CasualBans
+version: 1.0.0
+author: Kyssta
+description: A modern, feature-rich cross-server punishment management system. Supports MC 1.21 - 26.1.2.
+main: com.kyssta.casualbans.CasualBans
+api-version: "1.21"
+folia-supported: true
+softdepend:
+  - PlaceholderAPI
+  - ProtocolLib
+  - Vault
+  - LuckPerms
+
+permissions:
+  ## ── Punishment Permissions ──
+  casualbans.ban:
+    description: Allows banning players.
+    default: op
+  casualbans.tempban:
+    description: Allows temporary banning.
+    default: op
+  casualbans.ipban:
+    description: Allows IP banning.
+    default: op
+  casualbans.mute:
+    description: Allows muting players.
+    default: op
+  casualbans.tempmute:
+    description: Allows temporary muting.
+    default: op
+  casualbans.ipmute:
+    description: Allows IP muting.
+    default: op
+  casualbans.warn:
+    description: Allows warning players.
+    default: op
+  casualbans.kick:
+    description: Allows kicking players.
+    default: op
+  casualbans.unban:
+    description: Allows unbanning.
+    default: op
+  casualbans.unban.own:
+    description: Allows unbanning own punishments.
+    default: op
+  casualbans.unmute:
+    description: Allows unmuting.
+    default: op
+  casualbans.unmute.own:
+    description: Allows unmuting own punishments.
+    default: op
+  casualbans.unwarn:
+    description: Allows removing warnings.
+    default: op
+  casualbans.unwarn.own:
+    description: Allows removing own warnings.
+    default: op
+
+  ## ── Investigation Permissions ──
+  casualbans.history:
+    description: View punishment history.
+    default: op
+  casualbans.staffhistory:
+    description: View staff punishment history.
+    default: op
+  casualbans.checkban:
+    description: Check if player is banned.
+    default: op
+  casualbans.checkmute:
+    description: Check if player is muted.
+    default: op
+  casualbans.banlist:
+    description: View active bans.
+    default: op
+  casualbans.mutelist:
+    description: View active mutes.
+    default: op
+  casualbans.warnings:
+    description: View warnings.
+    default: op
+  casualbans.warnings.self:
+    description: View own warnings.
+    default: true
+  casualbans.dupeip:
+    description: Check alt accounts.
+    default: op
+  casualbans.ipreport:
+    description: Scan all online players for alts.
+    default: op
+  casualbans.iphistory:
+    description: View IP history.
+    default: op
+  casualbans.namehistory:
+    description: View name history.
+    default: op
+  casualbans.lastsession:
+    description: View last session info.
+    default: op
+  casualbans.geoip:
+    description: View player country.
+    default: op
+
+  ## ── Staff Tool Permissions ──
+  casualbans.staffrollback:
+    description: Rollback staff punishments.
+    default: op
+  casualbans.prunehistory:
+    description: Prune punishment history.
+    default: op
+  casualbans.lockdown:
+    description: Use server lockdown.
+    default: op
+  casualbans.lockdown.bypass:
+    description: Bypass lockdown.
+    default: false
+  casualbans.mutechat:
+    description: Toggle server chat.
+    default: op
+  casualbans.togglechat:
+    description: Toggle own chat.
+    default: op
+  casualbans.togglechat.bypass:
+    description: Bypass toggled chat.
+    default: op
+  casualbans.clearchat:
+    description: Clear chat.
+    default: op
+  casualbans.clearchat.bypass:
+    description: Bypass chat clear.
+    default: op
+  casualbans.note:
+    description: View and add staff notes on players.
+    default: op
+  casualbans.note.delete:
+    description: Delete staff notes.
+    default: op
+  casualbans.admin:
+    description: Admin commands (reload, info, etc.).
+    default: op
+
+  ## ── Notification Permissions ──
+  casualbans.notify:
+    description: View all staff notifications.
+    default: op
+  casualbans.notify.silent:
+    description: View silent punishments.
+    default: op
+  casualbans.notify.broadcast:
+    description: View punishment broadcasts.
+    default: true
+  casualbans.notify.bannedjoin:
+    description: Notified when banned player tries to join.
+    default: op
+  casualbans.notify.mutedchat:
+    description: Notified when muted player tries to chat.
+    default: op
+
+  ## ── Exempt Permissions ──
+  casualbans.exempt:
+    description: Immune to all punishments.
+    default: false
+  casualbans.exempt.ban:
+    description: Immune to bans.
+    default: false
+  casualbans.exempt.mute:
+    description: Immune to mutes.
+    default: false
+  casualbans.exempt.warn:
+    description: Immune to warnings.
+    default: false
+  casualbans.exempt.kick:
+    description: Immune to kicks.
+    default: false
+  casualbans.exempt.bypass:
+    description: Bypass exempt permissions.
+    default: false
+
+  ## ── Group Limit Permissions ──
+  casualbans.group.unlimited:
+    description: No punishment limits.
+    default: false
+  casualbans.cooldown.bypass:
+    description: Bypass cooldowns.
+    default: false
+
+  ## ── Command Flag Permissions ──
+  casualbans.silent:
+    description: Use -s flag.
+    default: op
+  casualbans.extrasilent:
+    description: Use -S flag.
+    default: op
+  casualbans.public:
+    description: Use -p flag.
+    default: op
+  casualbans.modify:
+    description: Use -m flag to modify punishments.
+    default: op
+  casualbans.modify.own:
+    description: Modify own punishments.
+    default: op
+  casualbans.delete:
+    description: Delete punishments with -d flag.
+    default: op
+  casualbans.delete.own:
+    description: Delete own punishments.
+    default: op
+  casualbans.server.global:
+    description: Use global server scope.
+    default: op
+
+commands:
+  ## ── Punishment Commands ──
+  ban:
+    description: Ban a player or IP.
+    usage: "/ban <player> [-s] [-S] [-I] [-p] [server:scope] [duration] [reason]"
+    aliases: [cban]
+    permission: casualbans.ban
+  tempban:
+    description: Temporarily ban a player.
+    usage: "/tempban <player> [-s] [-S] [-I] [-p] [server:scope] <duration> [reason]"
+    aliases: [ctempban, tban]
+    permission: casualbans.tempban
+  ipban:
+    description: IP ban a player.
+    usage: "/ipban <player> [-s] [-S] [-p] [server:scope] [duration] [reason]"
+    aliases: [cipban, banip, ban-ip]
+    permission: casualbans.ipban
+  mute:
+    description: Mute a player.
+    usage: "/mute <player> [-s] [-S] [-I] [-p] [server:scope] [duration] [reason]"
+    aliases: [cmute]
+    permission: casualbans.mute
+  tempmute:
+    description: Temporarily mute a player.
+    usage: "/tempmute <player> [-s] [-S] [-I] [-p] [server:scope] <duration> [reason]"
+    aliases: [ctempmute]
+    permission: casualbans.tempmute
+  ipmute:
+    description: IP mute a player.
+    usage: "/ipmute <player> [-s] [-S] [-p] [server:scope] [duration] [reason]"
+    aliases: [cipmute, muteip]
+    permission: casualbans.ipmute
+  warn:
+    description: Warn a player.
+    usage: "/warn <player> [-s] [-S] [-p] [server:scope] [reason]"
+    aliases: [cwarn]
+    permission: casualbans.warn
+  kick:
+    description: Kick a player.
+    usage: "/kick [-s] [-S] [-p] <player> [reason]"
+    aliases: [ckick]
+    permission: casualbans.kick
+  unban:
+    description: Unban a player or IP.
+    usage: "/unban <player> [reason]"
+    aliases: [cunban, pardon]
+    permission: casualbans.unban.own
+  unmute:
+    description: Unmute a player.
+    usage: "/unmute <player> [reason]"
+    aliases: [cunmute]
+    permission: casualbans.unmute.own
+  unwarn:
+    description: Remove the last active warning.
+    usage: "/unwarn <player> [reason]"
+    aliases: [cunwarn, rmwarn]
+    permission: casualbans.unwarn.own
+
+  ## ── History & Investigation Commands ──
+  history:
+    description: View punishment history.
+    usage: "/history <player> [type] [limit]"
+    aliases: [chistory, hist]
+    permission: casualbans.history
+  staffhistory:
+    description: View punishments created by a staff member.
+    usage: "/staffhistory <player> [type] [limit]"
+    aliases: [cstaffhistory, shist]
+    permission: casualbans.staffhistory
+  checkban:
+    description: Check if a player is banned.
+    usage: "/checkban <player>"
+    aliases: [ccheckban, chkban]
+    permission: casualbans.checkban
+  checkmute:
+    description: Check if a player is muted.
+    usage: "/checkmute <player>"
+    aliases: [ccheckmute, chkmute]
+    permission: casualbans.checkmute
+  banlist:
+    description: View active bans.
+    usage: "/banlist [page]"
+    aliases: [cbanlist, listbans]
+    permission: casualbans.banlist
+  mutelist:
+    description: View active mutes.
+    usage: "/mutelist [page]"
+    aliases: [cmutelist, listmutes]
+    permission: casualbans.mutelist
+  warnings:
+    description: View warnings.
+    usage: "/warnings [player]"
+    aliases: [cwarnings, warnlist, listwarn]
+    permission: casualbans.warnings.self
+  dupeip:
+    description: Find alt accounts sharing an IP.
+    usage: "/dupeip <player>"
+    aliases: [cdupeip, alts, checkalts]
+    permission: casualbans.dupeip
+  ipreport:
+    description: Scan all online players for alt accounts.
+    usage: "/ipreport"
+    aliases: [cipreport]
+    permission: casualbans.ipreport
+  iphistory:
+    description: View IP login history.
+    usage: "/iphistory <player> [limit]"
+    aliases: [ciphistory, iphist]
+    permission: casualbans.iphistory
+  namehistory:
+    description: View username history.
+    usage: "/namehistory <player>"
+    aliases: [cnamehistory, namehist]
+    permission: casualbans.namehistory
+  lastsession:
+    description: View last session information.
+    usage: "/lastsession <player>"
+    aliases: [clastsession]
+    permission: casualbans.lastsession
+  geoip:
+    description: Look up player country.
+    usage: "/geoip <player|IP>"
+    aliases: [cgeoip, geo]
+    permission: casualbans.geoip
+
+  ## ── Staff Tool Commands ──
+  staffrollback:
+    description: Rollback punishments by a staff member.
+    usage: "/staffrollback <player> [duration]"
+    aliases: [cstaffrollback]
+    permission: casualbans.staffrollback
+  prunehistory:
+    description: Remove inactive punishment history.
+    usage: "/prunehistory <player> [duration]"
+    aliases: [cprunehistory]
+    permission: casualbans.prunehistory
+  lockdown:
+    description: Toggle server lockdown.
+    usage: "/lockdown [reason|end]"
+    aliases: [clockdown]
+    permission: casualbans.lockdown
+  mutechat:
+    description: Toggle server chat.
+    usage: "/mutechat [-s]"
+    aliases: [cmutechat]
+    permission: casualbans.mutechat
+  togglechat:
+    description: Toggle your chat visibility.
+    usage: "/togglechat"
+    aliases: [ctogglechat]
+    permission: casualbans.togglechat
+  clearchat:
+    description: Clear the chat.
+    usage: "/clearchat"
+    aliases: [cclearchat]
+    permission: casualbans.clearchat
+
+  ## ── Staff Note Commands ──
+  note:
+    description: Add a note to a player or list their notes.
+    usage: "/note <player> [note]"
+    aliases: [cnote]
+    permission: casualbans.note
+  notelist:
+    description: List all staff notes across all players.
+    usage: "/notelist [player]"
+    aliases: [cnotelist, notes]
+    permission: casualbans.note
+  delnote:
+    description: Delete a staff note by ID.
+    usage: "/delnote <id>"
+    aliases: [cdelnote, delnote]
+    permission: casualbans.note.delete
+
+  ## ── Admin Commands ──
+  casualbans:
+    description: Admin commands for CasualBans.
+    usage: "/casualbans <reload|info|import|backup|restore|export|status|allow|unlink>"
+    aliases: [cbans]
+    permission: casualbans.admin

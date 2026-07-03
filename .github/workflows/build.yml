@@ -1,0 +1,58 @@
+name: Build & Publish
+on:
+  push:
+    branches: [main, master]
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CasualBans
+          path: build/libs/CasualBans-*.jar
+
+  publish-modrinth:
+    if: github.event_name == 'release'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: temurin
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+      - name: Publish to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: casualbans
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: build/libs/CasualBans-*.jar
+          name: CasualBans ${{ github.ref_name }}
+          version: ${{ github.ref_name }}
+          game-versions: |
+            1.21
+            1.21.1
+            1.21.3
+            1.21.4
+            26.0
+            26.1
+          loaders: |
+            paper
+            purpur
+          java: 21
+          changelog: "See https://github.com/Kyssta/CasualBans/releases/tag/${{ github.ref_name }}"

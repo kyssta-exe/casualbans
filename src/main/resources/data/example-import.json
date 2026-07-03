@@ -1,0 +1,104 @@
+{
+  "_comment": "Example CasualBans-compatible JSON import file",
+  "_format": "Can be used directly with /casualbans import json <file>",
+  "_fields": {
+    "type": "Required. One of: BAN, TEMPBAN, IPBAN, MUTE, TEMPMUTE, IPMUTE, WARN, KICK",
+    "uuid": "Required (or ip for IP bans). Player UUID (with or without dashes).",
+    "name": "Optional. Player name (resolved from UUID if omitted).",
+    "ip": "Optional. IP address for IP bans.",
+    "reason": "Optional. Default: 'Imported'.",
+    "executorUUID": "Optional. Staff UUID. Default: console UUID.",
+    "executorName": "Optional. Staff name. Default: 'Console'.",
+    "dateStart": "Optional. Unix epoch millis. Default: now.",
+    "dateEnd": "Optional. Unix epoch millis. 0 = permanent.",
+    "duration": "Optional. Duration in millis. Derived from dateEnd-dateStart if omitted.",
+    "serverScope": "Optional. Server scope. Default: plugin default.",
+    "serverOrigin": "Optional. Server origin. Default: current server.",
+    "silent": "Optional. Boolean. Default: false.",
+    "ipPunish": "Optional. Boolean. Auto-set for IPBAN/IPMUTE types.",
+    "active": "Optional. Boolean. Derived from expiry if omitted."
+  },
+  "punishments": [
+    {
+      "type": "BAN",
+      "uuid": "f7c3d7e0-8a5f-4b2c-9d1e-6f8a3b2c5d7e",
+      "name": "Steve",
+      "reason": "Griefing",
+      "executorUUID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "executorName": "Admin",
+      "dateStart": 1700000000000,
+      "dateEnd": 0,
+      "duration": 0,
+      "serverScope": "*",
+      "serverOrigin": "survival",
+      "silent": false,
+      "ipPunish": false,
+      "active": true
+    },
+    {
+      "type": "TEMPBAN",
+      "uuid": "12345678-1234-5678-1234-567812345678",
+      "name": "Alex",
+      "reason": "Spamming (7d)",
+      "executorUUID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "executorName": "Admin",
+      "dateStart": 1700000000000,
+      "dateEnd": 1700604800000,
+      "duration": 604800000,
+      "serverScope": "*",
+      "active": true
+    },
+    {
+      "type": "IPBAN",
+      "ip": "192.168.1.100",
+      "name": "192.168.1.100",
+      "reason": "Ban evasion",
+      "executorName": "Console",
+      "dateStart": 1700000000000,
+      "dateEnd": 0,
+      "active": true
+    },
+    {
+      "type": "MUTE",
+      "uuid": "deadbeef-dead-beef-dead-beefdeadbeef",
+      "name": "Notch",
+      "reason": "Chat spam",
+      "executorUUID": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "executorName": "Moderator",
+      "dateStart": 1700000000000,
+      "dateEnd": 0,
+      "active": true
+    },
+    {
+      "type": "TEMPMUTE",
+      "uuid": "cafebabe-cafe-babe-cafe-babecafebabe",
+      "name": "Herobrine",
+      "reason": "Excessive caps (1h)",
+      "executorName": "Moderator",
+      "dateStart": 1700000000000,
+      "dateEnd": 1700003600000,
+      "duration": 3600000,
+      "active": true
+    },
+    {
+      "type": "WARN",
+      "uuid": "abababab-abab-abab-abab-abababababab",
+      "name": "BuildTeam6",
+      "reason": "Inappropriate build",
+      "executorName": "Admin",
+      "dateStart": 1700000000000,
+      "dateEnd": 1702592000000,
+      "active": true
+    },
+    {
+      "type": "KICK",
+      "uuid": "11111111-2222-3333-4444-555555555555",
+      "name": "Jeb",
+      "reason": "AFK too long",
+      "executorName": "Console",
+      "dateStart": 1700000000000,
+      "dateEnd": 0,
+      "active": false
+    }
+  ]
+}

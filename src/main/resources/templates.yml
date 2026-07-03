@@ -1,0 +1,93 @@
+# ═══════════════════════════════════════════
+# CasualBans Templates
+# Developer: Kyssta
+# ═══════════════════════════════════════════
+#
+# Templates allow you to create pre-configured punishments with
+# ladder progression for repeat offenders.
+#
+# Configuration guide:
+#   reason: Default reason if not specified
+#   message: Custom kick/notification message
+#   duration: Punishment length (or permanent)
+#   permission: Required to use this template or remove its punishments
+#   actions: Commands to execute (use 'console:' prefix for console execution)
+#   flags: Command flags to apply (e.g., ['-s'] for silent)
+#
+# Ladder:
+#   Ladders track repeat offenses. Steps ordered HIGHEST to LOWEST.
+#   'final' is the final step (repeats indefinitely).
+#   Each step can override: reason, message, duration, actions, flags
+#
+# expire_ladder: How long before a punishment drops off the ladder
+#   (e.g., '90d' means a 90-day-old offense won't count)
+#
+# ip_template: If true, ladder progression is shared across accounts on same IP
+
+ban-templates:
+  example:
+    reason: 'Example ban reason'
+    message: '<red>You are banned.</red>'
+    duration: 7d
+    ladder:
+      final:
+        duration: permanent
+      second:
+        duration: 30d
+      first:
+        duration: 7d
+    expire_ladder: 90d
+
+mute-templates:
+  {}
+
+warn-templates:
+  {}
+
+kick-templates:
+  {}
+
+# ═══════════════════════════════════════════
+# Template Groups
+# ═══════════════════════════════════════════
+#
+# Template Groups are like LiteBans' weighted multi-template ladders.
+# Multiple templates share ONE ladder with decimal weights. When the
+# combined weight crosses an integer threshold, the ladder escalates.
+#
+# Combined weight = Σ (offense_count × weight) for each template.
+#   e.g. ChatOffenses: Spam(0.25) + Advertising(0.50) + Toxicity(0.20)
+#     1 Spam + 1 Advertising  = 0.75  → step 0
+#     2 Spam + 1 Advertising  = 1.00  → step 1
+#     4 Advertising            = 2.00  → step 2
+#
+# The ladder steps are indexed by Math.floor(combinedWeight) and
+# cap at the final step for any weight exceeding the ladder size.
+#
+# Note: Templates referenced in group weights must be defined in their
+# respective section above (mute-templates for MUTE type, etc.).
+#
+# template-groups:
+#   ChatOffenses:
+#     type: MUTE  # Punishment type for this group's ladder
+#     expire_ladder: 90d
+#     weights:
+#       spam: 0.25
+#       advertising: 0.50
+#       toxicity: 0.20
+#     ladder:
+#       step4:
+#         duration: 30d
+#         reason: 'Repeated chat offenses (severe)'
+#       step3:
+#         duration: 14d
+#         reason: 'Repeated chat offenses (major)'
+#       step2:
+#         duration: 7d
+#         reason: 'Repeated chat offenses'
+#       step1:
+#         duration: 3d
+#         reason: 'Repeated chat offenses'
+#       step0:
+#         duration: 1d
+#         reason: 'Chat misconduct'

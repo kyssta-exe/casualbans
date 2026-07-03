@@ -1,0 +1,223 @@
+# ═══════════════════════════════════════════
+# CasualBans Configuration
+# Developer: Kyssta
+# ═══════════════════════════════════════════
+
+server:
+  # Server identifier for cross-server sync.
+  name: 'casualbans'
+  # Default scope for punishments. Use '*' for global, 'local' for per-server.
+  default-scope: '*'
+
+storage:
+  # Options: JSON, H2, MYSQL, MARIADB, POSTGRESQL
+  # JSON: stores data in JSON files under plugins/CasualBans/data/
+  # H2: embedded Java database (requires H2 driver)
+  driver: JSON
+
+  # SQL connection settings (ignored when using JSON)
+  sql:
+    host: localhost
+    port: 3306
+    database: casualbans
+    username: root
+    password: ''
+    # Connection pool
+    pool:
+      min-connections: 2
+      max-connections: 10
+      timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+    # Optional: MySQL/MariaDB engine
+    engine: InnoDB
+    # Table prefix
+    table-prefix: 'cb_'
+
+  # Database driver configuration
+  # Format: name:driver-class:download-url:version:sha256
+  drivers:
+    - 'mysql:com.mysql.cj.jdbc.Driver:https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/{}/mysql-connector-j-{}.jar:9.2.0:'
+    - 'pgsql:org.postgresql.Driver:https://repo1.maven.org/maven2/org/postgresql/postgresql/{}/postgresql-{}.jar:42.7.5:'
+    - 'h2:org.h2.Driver:https://repo1.maven.org/maven2/com/h2database/h2/{}/h2-{}.jar:2.3.232:'
+
+sync:
+  # If true, punishments sync across all servers connected to the same database.
+  enabled: true
+  # If true, broadcasts sync across servers.
+  broadcasts: true
+  # If true, notifications sync across servers.
+  notifications: true
+
+mutes:
+  enabled: true
+  # Commands that muted players cannot use.
+  command-blacklist:
+    - '/me'
+    - '/say'
+    - '/msg'
+    - '/tell'
+    - '/whisper'
+    - '/reply'
+    - '/pm'
+    - '/message'
+    - '/mail send'
+  # Commands blocked during mutechat
+  mutechat-command-blacklist:
+    - '/me'
+    - '/say'
+  # Block colon-prefixed command bypass (e.g., /minecraft:me)
+  prevent-bypass: true
+
+warnings:
+  # How long warnings remain active before expiring. Set to 'permanent' for no expiry.
+  expire-after: 30d
+  # Warning actions: execute commands when a player reaches X warnings.
+  # Format: threshold[+]:command
+  # The '+' means at threshold OR MORE. $player resolves to player name.
+  actions:
+    - '3:kick $player Final warning: $reason'
+    - '4:tempban $player 7d Reached 4 warnings: $list'
+  # If true, console executes warning actions instead of the warning staff member.
+  actions-execute-as-console: true
+  # If true, all active warnings are deactivated after an action fires.
+  delete-warnings-after-action: false
+
+durations:
+  # Staff group limits and cooldowns.
+  # Players with casualbans.group.unlimited bypass all limits.
+  limits:
+    admin:
+      permission: casualbans.group.admin
+      tempban: 6 months
+      tempmute: 6 months
+      cooldown-ban: 0s
+      cooldown-mute: 0s
+      cooldown-warn: 0s
+      cooldown-kick: 0s
+      cooldown-redo: 0s
+      require-template: false
+      weight: 100
+    moderator:
+      permission: casualbans.group.moderator
+      tempban: 30d
+      tempmute: 14d
+      cooldown-ban: 5s
+      cooldown-mute: 5s
+      cooldown-warn: 3s
+      cooldown-kick: 3s
+      cooldown-redo: 2s
+      require-template: false
+      weight: 50
+    helper:
+      permission: casualbans.group.helper
+      tempban: 7d
+      tempmute: 3d
+      cooldown-ban: 10s
+      cooldown-mute: 10s
+      cooldown-warn: 5s
+      cooldown-kick: 5s
+      cooldown-redo: 5s
+      require-template: false
+      weight: 10
+  # When true, exceeding duration limit reduces to max instead of error
+  round-down: true
+  # Console cooldown (protects from double-punishment, not from mass-punishment)
+  console-cooldown: 1s
+
+exempt:
+  enabled: true
+  # When enabled, lower weight groups cannot punish higher weight groups
+  use-group-weights: false
+  # Exempt specific players: 'PlayerName:type' or just 'PlayerName'
+  players: []
+  # Exempt entire permission groups
+  groups: []
+
+geoip:
+  # Requires MaxMind GeoLite2 database
+  enabled: false
+  # Countries to block (ISO names). Players from these countries cannot join.
+  blacklist: []
+  # Countries allowed (whitelist mode - blocks all not listed).
+  # Add 'error' to allow local/unresolvable addresses.
+  whitelist: []
+  # MaxMind license key for GeoLite2 database download
+  license-key: ''
+
+notifications:
+  # Alert staff when banned player tries to join
+  banned-player-join: true
+  # Alert staff when muted player tries to chat
+  muted-player-chat: true
+  # Scan for alt accounts on join
+  dupeip-on-join: true
+  # Notify only if a banned account is found on same IP
+  dupeip-on-banned-account: true
+  # Notify only if muted account found
+  dupeip-on-muted-account: false
+  # Notify only if player has X+ accounts
+  dupeip-on-join-threshold: 999999
+  # Max accounts shown per IP in /dupeip
+  dupeip-scan-limit: 20
+  # Log notifications to console
+  console: true
+
+security:
+  # If true, only console sees IPs in /dupeip
+  dupeip: true
+  # If true, only console can use /iphistory
+  iphistory: true
+  # If true, only console can use /staffrollback
+  staffrollback: true
+
+lockdown:
+  persists-across-restart: true
+
+# Display settings
+display:
+  # Use display names (from /nick) in broadcasts and messages
+  use-display-names: false
+  # Console display name
+  console-name: 'Console'
+  # Default punishments not shown as silent (-p flag overrides)
+  default-silent: false
+  # Default IP-based punishments (requires ipban/ipmute perms)
+  default-ip: false
+
+# History
+history:
+  default-limit: 10
+  # Prune history older than X days (0 = never)
+  prune-older-than-days: 0
+
+performance:
+  async-threads: 4
+  # Cache banned players in memory for faster login checks
+  cache-bans: true
+  ban-cache-seconds: 60
+
+# Integration
+integrations:
+  placeholderapi: true
+  protocollib: true
+  vault: false
+  luckperms: false
+
+# Web interface settings
+web:
+  enabled: false
+  port: 8291
+
+# Discord webhooks
+webhooks:
+  enabled: false
+  # URL for punishment notifications (bans, mutes, warns, kicks)
+  punishment-url: ''
+  # URL for alt account detection alerts
+  alt-url: ''
+  # URL for staff action logs (reloads, rollbacks, etc.)
+  staff-url: ''
+
+update-check: true
+debug: false
