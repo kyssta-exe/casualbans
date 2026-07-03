@@ -39,7 +39,7 @@ jobs:
       - name: Publish to Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          modrinth-id: casualbans
+          modrinth-id: tHUXaJ5o
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           files: build/libs/CasualBans-*.jar
           name: CasualBans ${{ github.ref_name }}
