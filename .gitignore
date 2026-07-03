@@ -38,3 +38,4 @@ src/main/resources/plugin.yml  # regenerated each build? remove if tracked
 # Minecraft server artifacts (if any end up here)
 plugins/
 servers/
+build.gradle.kts.backup
