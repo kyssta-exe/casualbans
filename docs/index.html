@@ -70,7 +70,18 @@
         noData: 'No results found',
         depth: 4,
         hideOtherSidebarContent: false
-      }
+      },
+      plugins: [
+        function(hook, vm) {
+          hook.afterEach(function(html) {
+            return html
+              .replace(/\[BADGE_PAPER\]/g, '<span style="display:inline-block;padding:0.25em 0.6em;font-size:85%;font-weight:600;border-radius:4px;background:#2d1b3e;border:1px solid #8c75a5;color:#c9d1d9;margin:0 0.2em">Paper 1.21-26.1.2</span>')
+              .replace(/\[BADGE_FOLIA\]/g, '<span style="display:inline-block;padding:0.25em 0.6em;font-size:85%;font-weight:600;border-radius:4px;background:#1b2d3e;border:1px solid #468ac9;color:#c9d1d9;margin:0 0.2em">Folia</span>')
+              .replace(/\[BADGE_JAVA\]/g, '<span style="display:inline-block;padding:0.25em 0.6em;font-size:85%;font-weight:600;border-radius:4px;background:#1b3e2d;border:1px solid #46c98a;color:#c9d1d9;margin:0 0.2em">Java 21</span>')
+              .replace(/\[BADGE_MIT\]/g, '<span style="display:inline-block;padding:0.25em 0.6em;font-size:85%;font-weight:600;border-radius:4px;background:#3e2d1b;border:1px solid #c98a46;color:#c9d1d9;margin:0 0.2em">MIT</span>');
+          });
+        }
+      ]
     };
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
