@@ -26,7 +26,7 @@
 # Set a message to '' to disable it.
 
 # General
-prefix: '<gradient:#8c75a5:#f46c90>CasualBans</gradient> <dark_gray>»</dark_gray>'
+prefix: '<#8c75a5>CasualBans</#8c75a5> <dark_gray>»</dark_gray>'
 no-permission: '<red>You do not have permission to use this command.</red>'
 player-not-found: '<red>Player not found.</red>'
 console-only: '<red>This command can only be executed from console.</red>'

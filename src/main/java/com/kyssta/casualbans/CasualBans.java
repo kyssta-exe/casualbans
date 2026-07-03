@@ -75,7 +75,7 @@ public final class CasualBans extends JavaPlugin {
         Validator.validateConfig();
 
         // Load prefix & messages
-        String prefix = getConfig().getString("display.prefix", "<gradient:#8c75a5:#f46c90>CasualBans</gradient> <dark_gray>»</dark_gray>");
+        String prefix = getConfig().getString("display.prefix", "<#8c75a5>CasualBans</#8c75a5> <dark_gray>»</dark_gray>");
         MessageUtil.setPrefix(prefix);
 
         // Init thread pools

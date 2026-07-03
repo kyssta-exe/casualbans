@@ -1,10 +1,8 @@
 # CasualBans
 
-> A modern, feature-rich cross-server punishment management system for Paper 1.21+
+> A modern, feature-rich cross-server punishment management system for Paper 1.21 → 26.1.2
 
-**Powerful • Cross-Server • Developer-Friendly**
+**Paper 1.21-26.1.2** · **Folia** · **Java 21** · **MIT License**
 
-[Get Started](#casualbans-documentation)
 [GitHub](https://github.com/kyssta-exe/casualbans)
-
-![color](#0d1117)
+[Get Started](README.md)

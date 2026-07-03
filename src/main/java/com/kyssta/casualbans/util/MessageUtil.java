@@ -23,7 +23,7 @@ public final class MessageUtil {
 
     // Main config messages
     private static final Map<String, String> MESSAGES = new HashMap<>();
-    private static String PREFIX = "<gradient:#8c75a5:#f46c90>CasualBans</gradient> <dark_gray>»</dark_gray> ";
+    private static String PREFIX = "<#8c75a5>CasualBans</#8c75a5> <dark_gray>»</dark_gray> ";
 
     private MessageUtil() {}
 
