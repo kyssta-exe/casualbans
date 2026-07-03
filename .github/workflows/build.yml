@@ -37,7 +37,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew shadowJar
       - name: Publish to Modrinth
-        uses: Kir-Antipov/mc-publish@v3.3
+        uses: Kir-Antipov/mc-publish@v3.4
         with:
           modrinth-id: tHUXaJ5o
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
