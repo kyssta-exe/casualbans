@@ -17,7 +17,7 @@
 
 Grab the latest `CasualBans.jar` from:
 
-- **[GitHub Releases](https://github.com/Kyssta/CasualBans/releases)** — Recommended
+- **[GitHub Releases](https://github.com/kyssta-exe/casualbans/releases)** — Recommended
 - **[Modrinth](https://modrinth.com/plugin/casualbans)** — Alternative mirror
 
 ## Step 2 — Install

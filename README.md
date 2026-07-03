@@ -7,8 +7,8 @@
 ![Paper](https://img.shields.io/badge/Paper-1.21--26.1.2-8c75a5?style=flat-square&logo=minecraft)
 ![Folia](https://img.shields.io/badge/Folia-✔-468ac9?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-46c98a?style=flat-square&logo=openjdk)
-![License](https://img.shields.io/github/license/Kyssta/CasualBans?style=flat-square&color=c98a46)
-![Version](https://img.shields.io/github/v/release/Kyssta/CasualBans?style=flat-square&color=8c75a5)
+![License](https://img.shields.io/github/license/kyssta-exe/casualbans?style=flat-square&color=c98a46)
+![Version](https://img.shields.io/github/v/release/kyssta-exe/casualbans?style=flat-square&color=8c75a5)
 
 [Features](#features) • [Quick Start](#quick-start) • [Commands](#commands) • [Configuration](#configuration) • [Building](#building) • [Documentation](#documentation)
 
@@ -141,7 +141,7 @@ web:
 **Requirements:** Java 21+, Git
 
 ```bash
-git clone https://github.com/Kyssta/CasualBans.git
+git clone https://github.com/kyssta-exe/casualbans.git
 cd CasualBans
 ./gradlew shadowJar
 ```
@@ -183,5 +183,4 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 ## Support
 
-- [GitHub Issues](https://github.com/Kyssta/CasualBans/issues) — Bug reports & feature requests
-- [Discord](https://discord.gg/kyssta) — Community & support
+- [GitHub Issues](https://github.com/kyssta-exe/casualbans/issues) — Bug reports & feature requests

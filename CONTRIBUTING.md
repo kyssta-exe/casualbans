@@ -85,7 +85,7 @@ chore: update dependencies
 
 ## Reporting Bugs
 
-Open a [GitHub Issue](https://github.com/Kyssta/CasualBans/issues/new) with:
+Open a [GitHub Issue](https://github.com/kyssta-exe/casualbans/issues/new) with:
 
 - Server version (Paper build number)
 - Plugin version
@@ -96,7 +96,7 @@ Open a [GitHub Issue](https://github.com/Kyssta/CasualBans/issues/new) with:
 
 ## Feature Requests
 
-Open a [GitHub Issue](https://github.com/Kyssta/CasualBans/issues/new) with:
+Open a [GitHub Issue](https://github.com/kyssta-exe/casualbans/issues/new) with:
 
 - A clear description of the feature
 - Why it would be useful
@@ -104,6 +104,5 @@ Open a [GitHub Issue](https://github.com/Kyssta/CasualBans/issues/new) with:
 
 ## Questions?
 
-Join the [Kyssta Discord](https://discord.gg/kyssta) for discussion.
 
 Thank you for contributing! 🚀

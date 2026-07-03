@@ -40,5 +40,4 @@ CasualBans is a modern, all-in-one punishment management plugin for Paper 1.21â€
 
 ## Need Help?
 
-- **Issues:** [GitHub Issues](https://github.com/Kyssta/CasualBans/issues)
-- **Discord:** [Kyssta Discord](https://discord.gg/kyssta)
+- **Issues:** [GitHub Issues](https://github.com/kyssta-exe/casualbans/issues)

@@ -55,4 +55,4 @@ jobs:
             paper
             purpur
           java: 21
-          changelog: "See https://github.com/Kyssta/CasualBans/releases/tag/${{ github.ref_name }}"
+          changelog: "See https://github.com/kyssta-exe/casualbans/releases/tag/${{ github.ref_name }}"

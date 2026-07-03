@@ -170,12 +170,11 @@ Ensure `web.enabled: true` and that the port isn't blocked by a firewall. If beh
 
 ### Where do I report bugs?
 
-Open an issue on [GitHub Issues](https://github.com/Kyssta/CasualBans/issues).
+Open an issue on [GitHub Issues](https://github.com/kyssta-exe/casualbans/issues).
 
 ### Where can I get help?
 
-Join the [Kyssta Discord](https://discord.gg/kyssta) for community support and announcements.
 
 ### Can I contribute?
 
-Absolutely! Fork the repo, make your changes, and open a pull request on [GitHub](https://github.com/Kyssta/CasualBans). All contributions are welcome.
+Absolutely! Fork the repo, make your changes, and open a pull request on [GitHub](https://github.com/kyssta-exe/casualbans). All contributions are welcome.
