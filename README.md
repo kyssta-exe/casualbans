@@ -150,7 +150,7 @@ The compiled JAR is at `build/libs/CasualBans-1.0.0.jar` — includes all depend
 
 ## Documentation
 
-Full documentation is available at **[https://Kyssta.github.io/CasualBans](https://Kyssta.github.io/CasualBans)**
+Full documentation is available at **[https://kyssta-exe.github.io/CasualBans](https://kyssta-exe.github.io/CasualBans)**
 
 | Page | Description |
 |------|-------------|
